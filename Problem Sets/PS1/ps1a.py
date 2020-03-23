@@ -24,8 +24,30 @@ def load_cows(filename):
     Returns:
     a dictionary of cow name (string), weight (int) pairs
     """
-    # TODO: Your code here
-    pass
+    file = open(filename, 'r')
+    data = file.readlines()
+    length = len(data)
+    d = {}
+
+    x = 0
+    # split each line into a list of lenth two with name and weight
+    while x < len(data):
+        data[x] = data[x].split(',')
+        x += 1
+
+    x = 0
+    # map name to weight getting rid of newline characters
+    
+    while x < length:
+        dat = int(data[x][1].split()[0])
+        d[data[x][0]] = dat
+
+        x += 1
+
+    return d
+
+cows = load_cows('ps1_cow_data.txt')
+    
 
 # Problem 2
 def greedy_cow_transport(cows,limit=10):
@@ -50,8 +72,35 @@ def greedy_cow_transport(cows,limit=10):
     transported on a particular trip and the overall list containing all the
     trips
     """
-    # TODO: Your code here
-    pass
+    #make a copy of the dictionary
+    d = {}
+    for k in cows:
+        d[k] = cows[k]
+    
+    trips = []
+    while len(d) != 0:
+        trip, current_weight = [], 0
+        # create one trip
+        while current_weight < limit and len(d) > 0:
+            # check for the greatest cow
+            low_val, cow = None, None
+            for c in d:
+                if low_val == None or d[c] < low_val:
+                    low_val = d[c]
+                    cow = c
+                    
+            current_weight += d[cow]
+            # add only if still under wieght limit
+            if current_weight <= limit:
+                  trip.append(cow)
+            del d[cow]
+            
+        # add the trip
+        trips.append(trip)
+    return trips
+
+
+print(greedy_cow_transport(cows,limit=10))
 
 # Problem 3
 def brute_force_cow_transport(cows,limit=10):
