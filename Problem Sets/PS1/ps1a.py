@@ -161,7 +161,6 @@ def brute_force_cow_transport(cows,limit=10):
 
     return trips
 
-print(brute_force_cow_transport(cows, 10))
 # Problem 4
 def compare_cow_transport_algorithms():
     """
