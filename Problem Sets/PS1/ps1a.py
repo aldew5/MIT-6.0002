@@ -45,8 +45,6 @@ def load_cows(filename):
         x += 1
 
     return d
-
-cows = load_cows('ps1_cow_data.txt')
     
 
 # Problem 2
@@ -82,25 +80,27 @@ def greedy_cow_transport(cows,limit=10):
         trip, current_weight = [], 0
         # create one trip
         while current_weight < limit and len(d) > 0:
-            # check for the greatest cow
+            # check for the lightest cow
             low_val, cow = None, None
             for c in d:
                 if low_val == None or d[c] < low_val:
                     low_val = d[c]
                     cow = c
                     
-            current_weight += d[cow]
-            # add only if still under wieght limit
-            if current_weight <= limit:
-                  trip.append(cow)
-            del d[cow]
+            if current_weight + d[cow] <= limit:
+                current_weight += d[cow]
+                trip.append(cow)
+                del d[cow]
+            else:
+                break
             
         # add the trip
         trips.append(trip)
     return trips
 
+cows = load_cows('ps1_cow_data.txt')
+#print(greedy_cow_transport(cows,limit=10))
 
-print(greedy_cow_transport(cows,limit=10))
 
 # Problem 3
 def brute_force_cow_transport(cows,limit=10):
@@ -124,9 +124,44 @@ def brute_force_cow_transport(cows,limit=10):
     transported on a particular trip and the overall list containing all the
     trips
     """
-    # TODO: Your code here
-    pass
+    l, trips = [], []
+    # create list of cows
+    for k in cows:
+        l.append(k)
+
+    # still cows left to transport
+    while len(l) > 0:
+        # set variables
+        highest_weight = 0
+        t, l = [], l
+
+        # loop through trips 
+        for p in get_partitions(l):
+            for trip in p:
+                total_weight = 0
+                for cow in trip:
+                    total_weight += cows[cow]
+
+                # more weight than the next best trip but less than the limit
+                if total_weight > highest_weight and total_weight <= limit:
+                    highest_weight = total_weight
+                    # best trip with given cows
+                    t = trip
+                    
+        # add the trip
+        trips.append(t)
+
+        # delete all trips using those cows
+        x = 0
+        while x < len(t):
+            if t[x] in l:
+                del l[l.index(t[x])]
+            x += 1
         
+
+    return trips
+
+print(brute_force_cow_transport(cows, 10))
 # Problem 4
 def compare_cow_transport_algorithms():
     """
@@ -141,5 +176,22 @@ def compare_cow_transport_algorithms():
     Returns:
     Does not return anything.
     """
-    # TODO: Your code here
-    pass
+    cows = load_cows('ps1_cow_data.txt')
+    start = time.time()
+
+    print("greedy trips")
+    end = time.time()
+    print("number of trips", len(greedy_cow_transport(cows, 10)))
+    print("time", end-start)
+
+    print("")
+    start = time.time()
+
+    print("brute force trips")
+    print("number of trips", len(brute_force_cow_transport(cows, 10)))
+    end = time.time()
+    print("time", end-start)
+
+compare_cow_transport_algorithms()
+
+    
