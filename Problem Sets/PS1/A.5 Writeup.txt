@@ -1,0 +1,18 @@
+1. What were your results from compare_cow_trasport_algorithms?  Which algorithm runs faster? Why?
+
+The greedy algorithm took 0.01 seconds to run and found a solution that requires six trips.  The brute force algorithm took 1.02 seconds to
+find a solution requiring five trips; the optimal solution.  The greedy alg runs faster because it only iterates over the list t times where
+t is the number of trips it finds to be optimal. The brute force alg on the other hand, iterates over every possible combination of cows
+which is far greater than t.
+
+
+2. Does the greedy alg return the optimal solution? Why/why not?
+
+The greedy alg doens't return the optimal solution.  It finds the locally optimal solution for each iteration which, in this case, doesn't result in the 
+globally optimal solution.
+
+
+3. Does the brute force algorithm return the optimal solution? Why/why not?
+
+Yes. The brute force alg searches through every combination of cows comparing each against each other.  Therefore the solution it finds must be the optimal 
+one.
