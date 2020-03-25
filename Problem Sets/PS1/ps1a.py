@@ -1,8 +1,8 @@
 ###########################
 # 6.0002 Problem Set 1a: Space Cows 
-# Name:
-# Collaborators:
-# Time:
+# Name: Alec Dewulf
+# Collaborators: None
+# Time: 3:00
 
 from ps1_partition import get_partitions
 import time
@@ -96,6 +96,7 @@ def greedy_cow_transport(cows,limit=10):
             
         # add the trip
         trips.append(trip)
+        print(trip)
     return trips
 
 cows = load_cows('ps1_cow_data.txt')
@@ -158,7 +159,6 @@ def brute_force_cow_transport(cows,limit=10):
                 del l[l.index(t[x])]
             x += 1
         
-
     return trips
 
 # Problem 4

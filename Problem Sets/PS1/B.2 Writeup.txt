@@ -1,0 +1,20 @@
+1. Explain why it would be difficult to use a brute force algorithm to solve this porblem if there were 30 different egg weights.
+You don't need to implement a brute force algorithm in order to answer this.
+
+The inherent problem with brute force algorithms is their lack of sophistication. They have to look through every possible solution
+in order to find the best one. With 30 different egg weights the amount of possible solutions could be enormous so this would take a
+really long time.
+
+
+2. If you were to implement a greedy algorithm for find the minimum number of eggs needed, what would the objective function be? Why would the
+constraints be? What strategy would your greedy algorithm follow to pick which eggs to take?
+
+The objective function would be a combined weight of eggs equal to the maximum capacity.  The constraint would be that the sum of the eggs' weights 
+be less than the maximum value for them.  My algorithm would begin by selecting the heaviest eggs until there is no longer room for that egg. It would then 
+move to the next heaviest egg and repeat this process until the max weight is reached.
+
+
+3. Will a greedy algorithm always return the optimal solution to this problem? Explain why it is optimal or give an example of when it will not return the optimal
+solution.
+
+Yes it will. Since the heaviest egg is always the most valuable item a greedy algorithm will always work.  If there were multiple trips it would fail.   
