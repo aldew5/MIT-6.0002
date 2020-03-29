@@ -57,8 +57,8 @@ class WeightedEdge(Edge):
     def __init__(self, src, dest, total_distance, outdoor_distance):
         self.src = src
         self.dest = dest
-        self.total_distance = total_distance
-        self.outdoor_distance = outdoor_distance
+        self.total_distance = int(total_distance)
+        self.outdoor_distance = int(outdoor_distance)
 
     def get_total_distance(self):
         return self.total_distance
@@ -67,8 +67,8 @@ class WeightedEdge(Edge):
         return self.outdoor_distance
 
     def __str__(self):
-        return '{}->{}({},{})'.format(self.src, self.dest, self.total_distance, self.outdoor_distance)
-
+        #return '{}->{}({},{})'.format(self.src, self.dest, self.total_distance, self.outdoor_distance)
+        return ("%s->%s (%s, %s)"%(self.src,self.dest,self.total_distance,self.outdoor_distance))
 
 class Digraph(object):
     """Represents a directed graph of Node and Edge objects"""
@@ -95,6 +95,7 @@ class Digraph(object):
         already in the graph."""
         if node not in self.nodes:
             self.nodes.add(node)
+            self.edges[node] = []
         else:
             raise ValueError("Node alread in the graph")
 
@@ -102,15 +103,15 @@ class Digraph(object):
         """Adds an Edge or WeightedEdge instance to the Digraph. Raises a
         ValueError if either of the nodes associated with the edge is not
         in the  graph."""
-        print(edge)
+        src = edge.get_source()
+        dest = edge.get_destination()
+        if not (src in self.nodes and dest in self.nodes):
+            raise ValueError('Node not in graph')
+
+        # add the edge if the node is in the graph
+        self.edges[edge.get_source()].append(edge)
+
         
-        if edge.src in self.nodes and edge.dest in self.nodes:
-            self.edges[edge.src].add(edge)
-            self.edges[edge.dest] = self.edges[edge.dest].append(edge)
-        else:
-            raise ValueError("Required node(s) not in graph")
-
-
 # ================================================================
 # Begin tests -- you do not need to modify anything below this line
 # ================================================================
