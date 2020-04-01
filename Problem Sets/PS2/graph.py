@@ -110,7 +110,6 @@ class Digraph(object):
 
         # add the edge if the node is in the graph
         self.edges[edge.get_source()].append(edge)
-
         
 # ================================================================
 # Begin tests -- you do not need to modify anything below this line
@@ -165,6 +164,7 @@ class TestGraph(unittest.TestCase):
     def test_graph_str(self):
         expected = "a->b (15, 10)\na->c (14, 6)\nb->c (3, 1)"
         self.assertEqual(str(self.g), expected)
+
 
 
 if __name__ == "__main__":
